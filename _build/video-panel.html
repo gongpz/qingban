@@ -1,0 +1,135 @@
+  <!-- ============ 面板 7：视频压缩转换 ============ -->
+  <section class="panel" id="panel-video">
+    <div class="col3">
+      <!-- 左：输出设置 -->
+      <div class="col-side">
+        <div class="sec">
+          <div class="sec-title">01 · 输出格式</div>
+          <div class="fmt-grid" id="vdFmtGrid" style="grid-template-columns:1fr 1fr">
+            <button type="button" class="fmt-chip on" data-fmt="mp4"><b>MP4</b><span>H.264 · 最通用</span></button>
+            <button type="button" class="fmt-chip" data-fmt="webm"><b>WebM</b><span>VP9 · 体积小</span></button>
+          </div>
+          <div class="hint" id="vdFmtNote">MP4（H.264 + AAC）兼容性最好。</div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">02 · 画质与尺寸</div>
+          <div class="field">
+            <label>分辨率</label>
+            <select class="input" id="vdResolution">
+              <option value="0" selected>保持原尺寸</option>
+              <option value="2160">4K（2160p）</option>
+              <option value="1440">2K（1440p）</option>
+              <option value="1080">1080p</option>
+              <option value="720">720p</option>
+              <option value="480">480p</option>
+              <option value="360">360p</option>
+            </select>
+            <div class="hint">只缩小不放大；竖屏视频按短边计算。</div>
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-label">视频码率</span><span class="vd-badge" id="vdBrVal">自动</span></div>
+            <input type="range" id="vdBitrate" min="0" max="7" step="1" value="0">
+            <div class="hint" id="vdBrHint">自动按分辨率推荐，通常比原文件小 60–90%。</div>
+          </div>
+          <div class="field">
+            <label>帧率</label>
+            <select class="input" id="vdFps">
+              <option value="0" selected>保持原帧率</option>
+              <option value="60">60 fps</option>
+              <option value="30">30 fps</option>
+              <option value="24">24 fps</option>
+              <option value="15">15 fps</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>音频</label>
+            <select class="input" id="vdAudio">
+              <option value="keep" selected>保留（128 kbps）</option>
+              <option value="keep192">保留（192 kbps）</option>
+              <option value="keep96">保留（96 kbps）</option>
+              <option value="keep64">保留（64 kbps）</option>
+              <option value="drop">移除音轨</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">03 · 快速预设</div>
+          <div class="au-preset" id="vdPreset">
+            <button type="button" data-preset="wechat"><b>微信</b><small>720p · 2.5M</small></button>
+            <button type="button" data-preset="web"><b>网页</b><small>1080p · 4M</small></button>
+            <button type="button" data-preset="small"><b>省空间</b><small>480p · 1M</small></button>
+            <button type="button" data-preset="hd"><b>高清</b><small>原尺寸 · 8M</small></button>
+          </div>
+          <div class="field" style="margin-top:14px">
+            <label>输出文件名</label>
+            <select class="input" id="vdNameMode">
+              <option value="suffix" selected>原名 + "_压缩"</option>
+              <option value="fmt">原名 + "_" + 格式</option>
+              <option value="same">保持原名</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中：导入 / 队列 -->
+      <div class="col-mid" style="display:flex;flex-direction:column;min-height:0">
+        <div style="padding:18px 20px 0">
+          <div class="drop" id="vdDrop">
+            <div class="drop-title">拖入视频文件，或点击选择</div>
+            <div class="drop-sub">MP4 / MOV / M4V / WebM / MKV · 可批量<br>本机浏览器内解码与重编码，不上传服务器</div>
+            <button class="drop-btn" id="vdPickBtn" type="button">选择文件</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;flex:none">
+          <span style="font-size:13px;font-weight:600">文件队列 <span class="state ready" id="vdCount" style="margin-left:6px">0 个文件</span></span>
+          <button class="btn ghost" id="vdClearList" type="button">清空列表</button>
+        </div>
+        <div class="list" id="vdList" style="padding:0 20px 20px;flex:1;overflow:auto;min-height:120px">
+          <div class="empty" style="border:0">还没有添加视频文件</div>
+        </div>
+        <div class="progress-line" style="flex:none"><i id="vdGlobalBar"></i></div>
+      </div>
+
+      <!-- 右：汇总 / 操作 -->
+      <div class="col-right">
+        <div class="col-right-head">
+          <h2 class="col-right-title">视频压缩转换</h2>
+          <p class="col-right-sub">重新编码视频，按分辨率 / 码率 / 帧率压缩体积，并在 MP4(H.264) 与 WebM(VP9) 之间互转。</p>
+        </div>
+        <div class="col-right-body">
+          <div class="summary" style="flex-direction:row;justify-content:flex-start;gap:18px;flex-wrap:wrap">
+            <div class="stat"><span class="stat-label">文件总数</span><span class="stat-value" id="vdSumTotal">0</span></div>
+            <div class="stat"><span class="stat-label">已完成</span><span class="stat-value hl" id="vdSumDone">0</span></div>
+          </div>
+          <div class="summary" style="flex-direction:row;justify-content:flex-start;gap:18px;flex-wrap:wrap">
+            <div class="stat"><span class="stat-label">原始大小</span><span class="stat-value" id="vdSumIn" style="font-size:12px">0 B</span></div>
+            <div class="stat"><span class="stat-label">输出大小</span><span class="stat-value" id="vdSumOut" style="font-size:12px">0 B</span></div>
+          </div>
+          <div class="au-outbox" id="vdOutBox">
+            <div class="au-out-fmt">MP4</div>
+            <div class="au-out-meta">H.264 · 保持原尺寸 · 自动码率</div>
+          </div>
+          <div class="callout" style="font-size:11px" id="vdSupportNote">
+            <strong>本地处理</strong>：使用浏览器 WebCodecs 硬解/软编，视频不会离开本机。系统缺少 HEVC 解码器时会自动启用内置软解（较慢）；转码较耗 CPU，长视频请耐心等待或先裁剪。
+          </div>
+        </div>
+        <div class="col-right-foot">
+          <button class="btn primary" id="vdStart" disabled style="width:100%;justify-content:center;height:46px" type="button">开始转码</button>
+          <button class="btn" id="vdStop" disabled style="width:100%;justify-content:center" type="button">取消转码</button>
+          <button class="btn" id="vdZip" disabled style="width:100%;justify-content:center" type="button">打包下载全部</button>
+          <button class="btn ghost" id="vdClearAll" disabled style="width:100%;justify-content:center" type="button">清空</button>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="vdPicker" multiple hidden accept="video/*,.mp4,.mov,.m4v,.webm,.mkv">
+
+    <div class="lightbox" id="vdPreview">
+      <button class="lightbox-close" id="vdPreviewClose" title="关闭预览">
+        <svg viewBox="0 0 24 24"><line x1="6.5" y1="6.5" x2="17.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="6.5" y2="17.5"/></svg>
+      </button>
+      <div class="lightbox-body"><video id="vdPreviewVideo" controls playsinline></video></div>
+      <div class="lightbox-info" id="vdPreviewName">视频预览</div>
+    </div>
+  </section>

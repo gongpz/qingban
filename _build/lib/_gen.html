@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>sample generator</title>
+<script src="/lib/mp4-muxer.js"></script>
+<script src="/lib/webm-muxer.js"></script>
+</head>
+<body>
+<script>
+/* 测试样本生成器：用 WebCodecs + mp4-muxer/webm-muxer 生成 H.264+AAC MP4、VP9+Opus WebM。
+   页面无需引擎，独立验证 muxer 用法。 */
+(function () {
+  'use strict';
+
+  function toBase64(u8) {
+    var CH = 0x8000, out = [];
+    for (var i = 0; i < u8.length; i += CH) {
+      out.push(String.fromCharCode.apply(null, u8.subarray(i, i + CH)));
+    }
+    return btoa(out.join(''));
+  }
+
+  function drawFrame(ctx, w, h, t, idx) {
+    var g = ctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, 'hsl(' + ((t * 40) % 360) + ',70%,35%)');
+    g.addColorStop(1, 'hsl(' + ((t * 40 + 120) % 360) + ',70%,12%)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+    // 移动/旋转色块 + 细节纹理（给编码器一些内容）
+    for (var i = 0; i < 7; i++) {
+      var a = t * 1.6 + i * 0.9;
+      var cx = w / 2 + Math.cos(a) * w * 0.32;
+      var cy = h / 2 + Math.sin(a * 1.3) * h * 0.32;
+      ctx.beginPath();
+      ctx.arc(cx, cy, Math.min(w, h) * (0.05 + 0.03 * Math.sin(a * 2)), 0, Math.PI * 2);
+      ctx.fillStyle = 'hsla(' + ((i * 47 + t * 30) % 360) + ',90%,60%,0.85)';
+      ctx.fill();
+    }
+    // 网格纹理
+    ctx.strokeStyle = 'rgba(255,255,255,0.16)';
+    ctx.lineWidth = 1;
+    for (var x = 0; x < w; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+    for (var y = 0; y < h; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+    // 左上角红色标记（用于验证旋转）
+    ctx.fillStyle = '#ff2020';
+    ctx.fillRect(0, 0, Math.round(w * 0.18), Math.round(h * 0.18));
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold ' + Math.round(h * 0.09) + 'px sans-serif';
+    ctx.fillText('TL', Math.round(w * 0.03), Math.round(h * 0.13));
+    // 大字计数
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fillRect(w * 0.28, h * 0.60, w * 0.44, h * 0.22);
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold ' + Math.round(h * 0.15) + 'px Consolas, monospace';
+    ctx.fillText(String(idx).padStart(4, '0'), w / 2, h * 0.77);
+    ctx.textAlign = 'left';
+  }
+
+  function audioChunk(sampleRate, t0, n, channels) {
+    var buf = new Float32Array(n * channels);
+    for (var i = 0; i < n; i++) {
+      var t = t0 + i / sampleRate;
+      var env = 0.25 * (0.6 + 0.4 * Math.sin(2 * Math.PI * 0.7 * t));
+      var tone = 0.6 * Math.sin(2 * Math.PI * 440 * t) + 0.25 * Math.sin(2 * Math.PI * 660 * t);
+      for (var c = 0; c < channels; c++) {
+        buf[i * channels + c] = env * tone * (c === 0 ? 1 : 0.7);
+      }
+    }
+    return buf;
+  }
+
+  async function generate(o) {
+    var w = o.width, h = o.height, fps = o.fps, dur = o.duration;
+    var nFrames = Math.round(fps * dur);
+    var isMp4 = o.container === 'mp4';
+    var hasAudio = o.audio !== false;
+    var Target = isMp4 ? Mp4Muxer.ArrayBufferTarget : WebMMuxer.ArrayBufferTarget;
+    var Muxer = isMp4 ? Mp4Muxer.Muxer : WebMMuxer.Muxer;
+    var muxOpts = { target: new Target() };
+    if (o.type) muxOpts.type = o.type;
+    var webmCodec = o.vcodec === 'vp8' ? 'V_VP8' : (o.vcodec === 'av1' ? 'V_AV1' : 'V_VP9');
+    var webCodec = o.vcodec === 'vp8' ? 'vp8' : (o.vcodec === 'av1' ? 'av01.0.04M.08' : 'vp09.00.10.08');
+    var audioRate = isMp4 ? (o.audioRate || 48000) : 48000;
+    var ach = o.audioChannels || 2;
+    if (isMp4) {
+      muxOpts.video = { codec: 'avc', width: w, height: h };
+      if (hasAudio) muxOpts.audio = { codec: 'aac', sampleRate: audioRate, numberOfChannels: ach, bitrate: o.audioBitrate };
+      muxOpts.fastStart = 'in-memory';
+    } else {
+      muxOpts.video = { codec: webmCodec, width: w, height: h, frameRate: fps };
+      if (hasAudio) muxOpts.audio = { codec: 'A_OPUS', sampleRate: 48000, numberOfChannels: ach };
+    }
+    var muxer = new Muxer(muxOpts);
+    var vChunks = 0, aChunks = 0, firstADesc = null, firstVDesc = null, err = null;
+
+    var ven = new VideoEncoder({
+      output: function (chunk, meta) {
+        vChunks++;
+        if (meta && meta.decoderConfig && meta.decoderConfig.description && !firstVDesc) {
+          firstVDesc = new Uint8Array(meta.decoderConfig.description).length;
+        }
+        muxer.addVideoChunk(chunk, meta);
+      },
+      error: function (e) { err = e; }
+    });
+    ven.configure({
+      codec: isMp4 ? 'avc1.420028' : webCodec,
+      width: w, height: h, bitrate: o.videoBitrate, framerate: fps,
+      avc: isMp4 ? { format: 'avc' } : undefined,
+      latencyMode: 'quality'
+    });
+
+    var canvas = new OffscreenCanvas(w, h);
+    var ctx = canvas.getContext('2d', { alpha: false });
+    var frameUs = Math.round(1e6 / fps);
+    for (var i = 0; i < nFrames; i++) {
+      drawFrame(ctx, w, h, i / fps, i);
+      var vf = new VideoFrame(canvas, { timestamp: i * frameUs, duration: frameUs });
+      ven.encode(vf, { keyFrame: i % (fps * 2) === 0 });
+      vf.close();
+      while (ven.encodeQueueSize > 5) await new Promise(function (r) { setTimeout(r, 1); });
+    }
+    await ven.flush();
+    ven.close();
+    if (err) throw err;
+
+    // ---- 音频 ----
+    if (hasAudio) {
+      var aen = new AudioEncoder({
+      output: function (chunk, meta) {
+        aChunks++;
+        var md = meta || {};
+        if (md.decoderConfig && md.decoderConfig.description && !firstADesc) {
+          firstADesc = { len: new Uint8Array(md.decoderConfig.description).length, codec: md.decoderConfig.codec, sr: md.decoderConfig.sampleRate, ch: md.decoderConfig.numberOfChannels, head: Array.prototype.slice.call(new Uint8Array(md.decoderConfig.description).subarray(0, 16)) };
+        }
+        if (isMp4) {
+          muxer.addAudioChunk(chunk, md);
+        } else {
+          // WebM 需要 OpusHead 作为 CodecPrivate：优先用编码器给的，否则自建
+          var desc = md.decoderConfig && md.decoderConfig.description
+            ? new Uint8Array(md.decoderConfig.description)
+            : makeOpusHead(ach, 312, 48000);
+          muxer.addAudioChunk(chunk, { decoderConfig: { codec: 'opus', sampleRate: 48000, numberOfChannels: ach, description: desc } });
+        }
+      },
+      error: function (e) { err = e; }
+    });
+    aen.configure({ codec: isMp4 ? 'mp4a.40.2' : 'opus', sampleRate: audioRate, numberOfChannels: ach, bitrate: o.audioBitrate });
+
+    function makeOpusHead(ch, preSkip, inputRate) {
+      var b = new Uint8Array(19);
+      b.set([79, 112, 117, 115, 72, 101, 97, 100], 0); // OpusHead
+      b[8] = 1; b[9] = ch;
+      b[10] = preSkip & 255; b[11] = (preSkip >> 8) & 255;
+      b[12] = inputRate & 255; b[13] = (inputRate >> 8) & 255; b[14] = (inputRate >> 16) & 255; b[15] = (inputRate >>> 24) & 255;
+      b[16] = 0; b[17] = 0; b[18] = 0;
+      return b;
+    }
+
+    var sr = audioRate, chunkN = isMp4 ? 1024 : 960, total = Math.round(dur * sr);
+    for (var s = 0; s < total; s += chunkN) {
+      var n = Math.min(chunkN, total - s);
+      var data = audioChunk(sr, s / sr, n, ach);
+      var ad = new AudioData({
+        format: 'f32-planar', sampleRate: sr, numberOfFrames: n, numberOfChannels: ach,
+        timestamp: Math.round(s / sr * 1e6), data: data
+      });
+      aen.encode(ad);
+      ad.close();
+      while (aen.encodeQueueSize > 8) await new Promise(function (r) { setTimeout(r, 1); });
+    }
+    await aen.flush();
+    aen.close();
+    if (err) throw err;
+    }
+
+    muxer.finalize();
+    var bytes = new Uint8Array(muxer.target.buffer);
+    return {
+      b64: toBase64(bytes), size: bytes.length, vChunks: vChunks, aChunks: aChunks,
+      firstVDesc: firstVDesc, firstADesc: firstADesc
+    };
+  }
+
+  window.genSample = function (kind) {
+    if (kind === 'mp4') {
+      return generate({ container: 'mp4', width: 1280, height: 720, fps: 30, duration: 10, videoBitrate: 1500000, audioBitrate: 96000 });
+    }
+    if (kind === 'webm') {
+      return generate({ container: 'webm', width: 1280, height: 720, fps: 30, duration: 10, videoBitrate: 1100000, audioBitrate: 80000 });
+    }
+    if (kind === 'av1') {
+      return generate({ container: 'webm', vcodec: 'av1', width: 320, height: 180, fps: 15, duration: 2, videoBitrate: 260000, audio: false });
+    }
+    if (kind === 'vp8') {
+      return generate({ container: 'webm', vcodec: 'vp8', width: 640, height: 360, fps: 30, duration: 2, videoBitrate: 500000, audio: false });
+    }
+    if (kind === 'mkv') {
+      return generate({ container: 'webm', type: 'matroska', vcodec: 'vp9', width: 640, height: 360, fps: 30, duration: 2, videoBitrate: 450000, audioBitrate: 64000 });
+    }
+    if (kind === 'aac44') {
+      return generate({ container: 'mp4', width: 320, height: 180, fps: 30, duration: 2, videoBitrate: 350000, audioBitrate: 96000, audioRate: 44100 });
+    }
+    if (kind === 'mono') {
+      return generate({ container: 'webm', vcodec: 'vp9', width: 320, height: 180, fps: 30, duration: 2, videoBitrate: 300000, audioBitrate: 64000, audioChannels: 1 });
+    }
+    throw new Error('unknown kind ' + kind);
+  };
+})();
+</script>
+</body></html>

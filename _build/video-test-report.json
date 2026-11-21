@@ -1,0 +1,1633 @@
+{
+  "when": "2026-11-21T03:27:54.585Z",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0",
+  "results": {
+    "checks": [
+      {
+        "name": "support(): WebCodecs 可用",
+        "pass": true,
+        "detail": "{\"webcodecs\":true,\"decode\":{\"h264\":true,\"vp8\":true,\"vp9\":true,\"av1\":true,\"hevc\":false,\"hevcSoftware\":true},\"encode\":{\"h264\":true,\"vp9\":true,\"av1\":true,\"vp8\":true},\"audioEncode\":{\"aac\":true,\"opus\":true},\"containers\":{\"mp4\":true,\"webm\":true}}"
+      },
+      {
+        "name": "support(): 解码 H.264",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "support(): 解码 VP9",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "support(): 容器 mp4 可用",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "support(): 容器 webm 可用",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "support(): 编码 VP8（WebM 回退，扩展字段）",
+        "pass": true,
+        "detail": "{\"h264\":true,\"vp9\":true,\"av1\":true,\"vp8\":true}"
+      },
+      {
+        "name": "support(): 音频编码 AAC",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "support(): 音频编码 Opus",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "样本加载",
+        "pass": true,
+        "detail": "mp4=2076390 webm=1162616 portrait=2076390"
+      },
+      {
+        "name": "probe(MP4) 容器",
+        "pass": true,
+        "detail": "mp4"
+      },
+      {
+        "name": "probe(MP4) 分辨率 1280x720",
+        "pass": true,
+        "detail": "1280x720"
+      },
+      {
+        "name": "probe(MP4) 时长≈10s",
+        "pass": true,
+        "detail": "10.005"
+      },
+      {
+        "name": "probe(MP4) fps≈30",
+        "pass": true,
+        "detail": "30"
+      },
+      {
+        "name": "probe(MP4) 旋转 0",
+        "pass": true,
+        "detail": "0"
+      },
+      {
+        "name": "probe(MP4) 视频编码 avc1",
+        "pass": true,
+        "detail": "avc1.42c01f"
+      },
+      {
+        "name": "probe(MP4) 音频 AAC",
+        "pass": true,
+        "detail": "mp4a.40.2"
+      },
+      {
+        "name": "probe(MP4) hasAudio",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "probe(MP4) 视频码率 > 0",
+        "pass": true,
+        "detail": "1561"
+      },
+      {
+        "name": "probe(MP4) 音频码率 > 0",
+        "pass": true,
+        "detail": "97"
+      },
+      {
+        "name": "probe(MP4) size 正确",
+        "pass": true,
+        "detail": "2076390 vs 2076390"
+      },
+      {
+        "name": "probe(WebM) 容器",
+        "pass": true,
+        "detail": "webm"
+      },
+      {
+        "name": "probe(WebM) 分辨率 1280x720",
+        "pass": true,
+        "detail": "1280x720"
+      },
+      {
+        "name": "probe(WebM) 时长≈10s",
+        "pass": true,
+        "detail": "10.033"
+      },
+      {
+        "name": "probe(WebM) fps≈30",
+        "pass": true,
+        "detail": "30"
+      },
+      {
+        "name": "probe(WebM) 视频编码 VP9",
+        "pass": true,
+        "detail": "vp09.00.10.08"
+      },
+      {
+        "name": "probe(WebM) 音频 Opus",
+        "pass": true,
+        "detail": "opus"
+      },
+      {
+        "name": "probe(WebM) hasAudio",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "probe(WebM) 视频码率 > 0",
+        "pass": true,
+        "detail": "827"
+      },
+      {
+        "name": "probe(WebM) 音频码率 > 0",
+        "pass": true,
+        "detail": "81"
+      },
+      {
+        "name": "probe(竖屏) 旋转 90",
+        "pass": true,
+        "detail": "90"
+      },
+      {
+        "name": "probe(竖屏) 显示尺寸 720x1280",
+        "pass": true,
+        "detail": "720x1280"
+      },
+      {
+        "name": "probe(竖屏) 视频编码 avc1",
+        "pass": true,
+        "detail": "avc1.42c01f"
+      },
+      {
+        "name": "probe(180°) rotation=180",
+        "pass": true,
+        "detail": "180"
+      },
+      {
+        "name": "probe(180°) 显示尺寸 1280x720",
+        "pass": true,
+        "detail": "1280x720"
+      },
+      {
+        "name": "probe(MOV) 容器 mov",
+        "pass": true,
+        "detail": "mov"
+      },
+      {
+        "name": "probe(MOV) 1280x720 / avc1",
+        "pass": true,
+        "detail": "1280x720 avc1.42c01f"
+      },
+      {
+        "name": "probe(M4V) 容器 mp4",
+        "pass": true,
+        "detail": "mp4"
+      },
+      {
+        "name": "probe(AV1/WebM) 视频编码 av01",
+        "pass": true,
+        "detail": "av01.0.04M.08"
+      },
+      {
+        "name": "probe(AV1/WebM) 320x180",
+        "pass": true,
+        "detail": "320x180"
+      },
+      {
+        "name": "probe(AV1/WebM) 无音频",
+        "pass": true,
+        "detail": "{\"hasAudio\":false,\"codec\":\"\"}"
+      },
+      {
+        "name": "probe(VP8/WebM) 视频编码 vp8",
+        "pass": true,
+        "detail": "vp8"
+      },
+      {
+        "name": "probe(VP8/WebM) 640x360",
+        "pass": true,
+        "detail": "640x360"
+      },
+      {
+        "name": "probe(MKV) 容器 mkv",
+        "pass": true,
+        "detail": "mkv"
+      },
+      {
+        "name": "probe(MKV) VP9 + Opus",
+        "pass": true,
+        "detail": "vp09.00.10.08 / opus"
+      },
+      {
+        "name": "probe(MKV) 640x360",
+        "pass": true,
+        "detail": "640x360"
+      },
+      {
+        "name": "MP4→MP4 返回 Uint8Array",
+        "pass": true,
+        "detail": "1165156 B"
+      },
+      {
+        "name": "MP4→MP4 输出比输入小",
+        "pass": true,
+        "detail": "1.11MB < 1.98MB"
+      },
+      {
+        "name": "MP4→MP4 耗时 ≤ 25s",
+        "pass": true,
+        "detail": "882ms"
+      },
+      {
+        "name": "MP4→MP4 probe 容器 mp4",
+        "pass": true,
+        "detail": "mp4"
+      },
+      {
+        "name": "MP4→MP4 probe 1280x720",
+        "pass": true,
+        "detail": "1280x720"
+      },
+      {
+        "name": "MP4→MP4 probe 时长误差 < 0.3s",
+        "pass": true,
+        "detail": "10.005 vs 10.005"
+      },
+      {
+        "name": "MP4→MP4 probe 视频 avc1",
+        "pass": true,
+        "detail": "avc1.42c01f"
+      },
+      {
+        "name": "MP4→MP4 meta 编码与实际一致",
+        "pass": true,
+        "detail": "avc1.42c01f vs avc1.42c01f"
+      },
+      {
+        "name": "MP4→MP4 probe 音频 mp4a",
+        "pass": true,
+        "detail": "mp4a.40.2"
+      },
+      {
+        "name": "MP4→MP4 probe hasAudio",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "MP4→MP4 probe 音频码率 > 50kbps",
+        "pass": true,
+        "detail": "96"
+      },
+      {
+        "name": "MP4→MP4 音频可解码且非静音",
+        "pass": true,
+        "detail": "rms=0.0853 samples=30720 ch=2"
+      },
+      {
+        "name": "MP4→MP4 <video> loadedmetadata",
+        "pass": true,
+        "detail": "duration=10.005"
+      },
+      {
+        "name": "MP4→MP4 <video> 时长误差 < 0.3s",
+        "pass": true,
+        "detail": "10.005 vs 10.005"
+      },
+      {
+        "name": "MP4→MP4 <video> 尺寸 1280x720",
+        "pass": true,
+        "detail": "1280x720"
+      },
+      {
+        "name": "MP4→MP4 首帧可解码（非黑像素>2%）",
+        "pass": true,
+        "detail": "100.0%"
+      },
+      {
+        "name": "MP4→MP4 进度单调递增",
+        "pass": true,
+        "detail": "{\"bad\":0,\"count\":14,\"last\":1,\"first\":0}"
+      },
+      {
+        "name": "MP4→MP4 进度到 1",
+        "pass": true,
+        "detail": "last=1"
+      },
+      {
+        "name": "MP4→WebM 耗时记录",
+        "pass": true,
+        "detail": "1047ms"
+      },
+      {
+        "name": "MP4→WebM probe 容器 webm",
+        "pass": true,
+        "detail": "webm"
+      },
+      {
+        "name": "MP4→WebM probe 854x480",
+        "pass": true,
+        "detail": "854x480"
+      },
+      {
+        "name": "MP4→WebM probe 时长误差 < 0.3s",
+        "pass": true,
+        "detail": "10.04 vs 10.005"
+      },
+      {
+        "name": "MP4→WebM probe 视频 VP9/VP8",
+        "pass": true,
+        "detail": "vp09.00.10.08"
+      },
+      {
+        "name": "MP4→WebM probe 音频 opus",
+        "pass": true,
+        "detail": "opus"
+      },
+      {
+        "name": "MP4→WebM probe hasAudio",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "MP4→WebM probe 音频码率 > 50kbps",
+        "pass": true,
+        "detail": "96"
+      },
+      {
+        "name": "MP4→WebM 音频可解码且非静音",
+        "pass": true,
+        "detail": "rms=0.0864 samples=28488 ch=2"
+      },
+      {
+        "name": "MP4→WebM <video> 时长误差 < 0.3s",
+        "pass": true,
+        "detail": "10.020 vs 10.005"
+      },
+      {
+        "name": "MP4→WebM <video> 尺寸 854x480",
+        "pass": true,
+        "detail": "854x480"
+      },
+      {
+        "name": "MP4→WebM 首帧可解码",
+        "pass": true,
+        "detail": "100.0%"
+      },
+      {
+        "name": "WebM→MP4 probe 容器 mp4",
+        "pass": true,
+        "detail": "mp4"
+      },
+      {
+        "name": "WebM→MP4 probe 854x480",
+        "pass": true,
+        "detail": "854x480"
+      },
+      {
+        "name": "WebM→MP4 probe 时长误差 < 0.35s",
+        "pass": true,
+        "detail": "10.027 vs 10.033"
+      },
+      {
+        "name": "WebM→MP4 probe 视频 avc1",
+        "pass": true,
+        "detail": "avc1.42c01f"
+      },
+      {
+        "name": "WebM→MP4 probe 音频 mp4a",
+        "pass": true,
+        "detail": "mp4a.40.2"
+      },
+      {
+        "name": "WebM→MP4 <video> 时长误差 < 0.35s",
+        "pass": true,
+        "detail": "10.027 vs 10.033"
+      },
+      {
+        "name": "WebM→MP4 首帧可解码",
+        "pass": true,
+        "detail": "100.0%"
+      },
+      {
+        "name": "AV1→MP4 输出 mp4 320x180",
+        "pass": true,
+        "detail": "mp4 320x180"
+      },
+      {
+        "name": "AV1→MP4 时长误差 < 0.3s",
+        "pass": true,
+        "detail": "2 vs 2.066"
+      },
+      {
+        "name": "AV1→MP4 可被 <video> 解码且首帧非黑",
+        "pass": true,
+        "detail": "duration=2.000 nonBlack=100.0%"
+      },
+      {
+        "name": "VP8→MP4 输出 640x360 avc1",
+        "pass": true,
+        "detail": "640x360 avc1.42c01e"
+      },
+      {
+        "name": "VP8→MP4 可被 <video> 解码且首帧非黑",
+        "pass": true,
+        "detail": "duration=2.000 nonBlack=100.0%"
+      },
+      {
+        "name": "MKV→MP4 容器/尺寸正确",
+        "pass": true,
+        "detail": "mp4 640x360"
+      },
+      {
+        "name": "MKV→MP4 保留音频且非静音",
+        "pass": true,
+        "detail": "{\"hasAudio\":true,\"rms\":0.08416759441757467}"
+      },
+      {
+        "name": "MOV→MP4 转码成功",
+        "pass": true,
+        "detail": "mp4 320x180"
+      },
+      {
+        "name": "复现：WebM→MP4 640x360 成功",
+        "pass": true,
+        "detail": "mp4 640x360"
+      },
+      {
+        "name": "复现：WebM→MP4 时长正确",
+        "pass": true,
+        "detail": "10.027 vs 10.033"
+      },
+      {
+        "name": "复现：WebM→MP4 音频保留",
+        "pass": true,
+        "detail": "{\"hasAudio\":true,\"rms\":0.08538938869196466}"
+      },
+      {
+        "name": "复现：WebM→MP4 <video> 可加载",
+        "pass": true,
+        "detail": "duration=10.027 640x360"
+      },
+      {
+        "name": "真实样本 H.264 MP4 probe",
+        "pass": true,
+        "detail": "mp4 640x360 0 avc1.64001f  dur=10 fps=30 vb=790 ab=0"
+      },
+      {
+        "name": "真实 H.264 MP4 → WebM 成功",
+        "pass": true,
+        "detail": "webm 640x360 0 vp09.00.10.08  dur=10.033 fps=30 vb=802 ab=0"
+      },
+      {
+        "name": "真实 H.264 MP4 → WebM 可被 <video> 加载",
+        "pass": true,
+        "detail": "duration=9.966 vs 10"
+      },
+      {
+        "name": "真实样本 VP9 WebM probe",
+        "pass": true,
+        "detail": "webm 640x360 0 vp09.00.10.08  dur=10.034 fps=30 vb=837 ab=0"
+      },
+      {
+        "name": "真实 VP9 WebM → MP4 成功",
+        "pass": true,
+        "detail": "mp4 640x360 0 avc1.42c01e  dur=10 fps=30 vb=728 ab=0"
+      },
+      {
+        "name": "真实 VP9 WebM → MP4 可被 <video> 加载",
+        "pass": true,
+        "detail": "duration=10.000 vs 10.034"
+      },
+      {
+        "name": "44.1kHz AAC MP4 probe",
+        "pass": true,
+        "detail": "mp4 320x180 0 avc1.42c015 mp4a.40.2 dur=2.02 fps=30 vb=441 ab=98"
+      },
+      {
+        "name": "44.1k AAC → WebM：重采样到 48k 且非静音",
+        "pass": true,
+        "detail": "{\"container\":\"webm\",\"hasAudio\":true,\"sr\":48000,\"rms\":0.08621719089334175}"
+      },
+      {
+        "name": "单声道 Opus WebM probe",
+        "pass": true,
+        "detail": "webm 320x180 0 vp09.00.10.08 opus dur=2.033 fps=30 vb=203 ab=65"
+      },
+      {
+        "name": "单声道 Opus → MP4 AAC（可解码且非静音）",
+        "pass": true,
+        "detail": "{\"channels\":1,\"rms\":0.10096235454459969,\"notes\":[]}"
+      },
+      {
+        "name": "单声道 → WebM 保持单声道且非静音",
+        "pass": true,
+        "detail": "{\"channels\":1,\"rms\":0.10251060988791819}"
+      },
+      {
+        "name": "fps=24 输出帧率≈24",
+        "pass": true,
+        "detail": "24"
+      },
+      {
+        "name": "fps=24 时长误差 < 0.35s",
+        "pass": true,
+        "detail": "10 vs 10.005"
+      },
+      {
+        "name": "fps=24 音频按参数丢弃",
+        "pass": true,
+        "detail": "{\"hasAudio\":false,\"codec\":\"\"}"
+      },
+      {
+        "name": "fps=24 meta.notes 非空",
+        "pass": true,
+        "detail": "[\"输出尺寸 854x480（原 1280x720）\",\"帧率 30 → 24 fps（按时间戳丢帧，时长不变）\",\"音频已丢弃：按参数丢弃音频\"]"
+      },
+      {
+        "name": "File 输入可用",
+        "pass": true,
+        "detail": "383302 B"
+      },
+      {
+        "name": "输出宽高为偶数",
+        "pass": true,
+        "detail": "642x360"
+      },
+      {
+        "name": "maxWidth 等比缩放生效",
+        "pass": true,
+        "detail": "642x360"
+      },
+      {
+        "name": "probe 未知格式应抛错",
+        "pass": true,
+        "detail": "无法识别的文件格式（支持 MP4 / MOV / M4V / WebM / MKV）"
+      },
+      {
+        "name": "竖屏 输出 720x1280",
+        "pass": true,
+        "detail": "720x1280"
+      },
+      {
+        "name": "竖屏 输出 rotation=0",
+        "pass": true,
+        "detail": "0"
+      },
+      {
+        "name": "竖屏 输出时长误差 < 0.3s",
+        "pass": true,
+        "detail": "10.005 vs 10.005"
+      },
+      {
+        "name": "竖屏 <video> 尺寸 720x1280",
+        "pass": true,
+        "detail": "720x1280"
+      },
+      {
+        "name": "竖屏 画面实际旋转（红块在右上）",
+        "pass": true,
+        "detail": "{\"topLeft\":{\"r\":114.6237322515213,\"g\":38.48715348208249,\"b\":26.38995943204868},\"topRight\":{\"r\":253.09837728194725,\"g\":44.469574036511155,\"b\":48.59567275185936}}"
+      },
+      {
+        "name": "180° 输出尺寸 480x270",
+        "pass": true,
+        "detail": "480x270"
+      },
+      {
+        "name": "180° 画面实际旋转（红块在右下）",
+        "pass": true,
+        "detail": "{\"topLeft\":{\"r\":22.214114832535884,\"g\":51.15191387559808,\"b\":12.464114832535886},\"bottomRight\":{\"r\":252.63752913752913,\"g\":43.82983682983683,\"b\":46.66200466200466}}"
+      },
+      {
+        "name": "AAC 编码不可用 → 输出仅视频 MP4",
+        "pass": true,
+        "detail": "{\"hasAudio\":false,\"notes\":[\"输出尺寸 320x180（原 1280x720）\",\"音频已丢弃：AAC 音频编码不可用\"]}"
+      },
+      {
+        "name": "AAC 编码不可用 → notes 注明原因",
+        "pass": true,
+        "detail": "输出尺寸 320x180（原 1280x720） | 音频已丢弃：AAC 音频编码不可用"
+      },
+      {
+        "name": "音频解码不可用 → 视频照转、音频丢弃",
+        "pass": true,
+        "detail": "{\"hasAudio\":false,\"notes\":[\"输出尺寸 320x180（原 1280x720）\",\"音频已丢弃：WebCodecs 无法解码输入音频编码 opus\"]}"
+      },
+      {
+        "name": "音频解码不可用 → notes 注明原因",
+        "pass": true,
+        "detail": "输出尺寸 320x180（原 1280x720） | 音频已丢弃：WebCodecs 无法解码输入音频编码 opus"
+      },
+      {
+        "name": "取消：convert 被 reject",
+        "pass": true,
+        "detail": "已取消"
+      },
+      {
+        "name": "取消：错误信息为「已取消」",
+        "pass": true,
+        "detail": "已取消"
+      },
+      {
+        "name": "取消：快速停止（< 8s）",
+        "pass": true,
+        "detail": "257ms"
+      },
+      {
+        "name": "取消后再次转码可用",
+        "pass": true,
+        "detail": "397388 B"
+      }
+    ],
+    "support": {
+      "webcodecs": true,
+      "decode": {
+        "h264": true,
+        "vp8": true,
+        "vp9": true,
+        "av1": true,
+        "hevc": false,
+        "hevcSoftware": true
+      },
+      "encode": {
+        "h264": true,
+        "vp9": true,
+        "av1": true,
+        "vp8": true
+      },
+      "audioEncode": {
+        "aac": true,
+        "opus": true
+      },
+      "containers": {
+        "mp4": true,
+        "webm": true
+      }
+    },
+    "samples": {
+      "mp4": 2076390,
+      "webm": 1162616,
+      "portrait": 2076390
+    },
+    "errors": [],
+    "timing": {
+      "probeStart": 1795231656303,
+      "probeMs": 12,
+      "mp4mp4Start": 1795231656315,
+      "mp4mp4Ms": 882,
+      "mp4mp4End": 1795231658192,
+      "mp4webmStart": 1795231658192,
+      "mp4webmMs": 1047,
+      "mp4webmEnd": 1795231660187,
+      "webmmp4Start": 1795231660187,
+      "webmmp4Ms": 751,
+      "webmmp4End": 1795231661871,
+      "fpsStart": 1795231667663,
+      "rotStart": 1795231668771,
+      "cancelStart": 1795231673076
+    },
+    "probe": {
+      "mp4": {
+        "container": "mp4",
+        "duration": 10.005,
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 1561,
+        "audioBitrate": 97,
+        "size": 2076390
+      },
+      "webm": {
+        "container": "webm",
+        "duration": 10.033,
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "vp09.00.10.08",
+        "audioCodec": "opus",
+        "hasAudio": true,
+        "videoBitrate": 827,
+        "audioBitrate": 81,
+        "size": 1162616
+      },
+      "portrait": {
+        "container": "mp4",
+        "duration": 10.005,
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "rotation": 90,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 1561,
+        "audioBitrate": 97,
+        "size": 2076390
+      },
+      "rot180": {
+        "container": "mp4",
+        "duration": 10.005,
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "rotation": 180,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 1561,
+        "audioBitrate": 97,
+        "size": 2076390
+      },
+      "mov": {
+        "container": "mov",
+        "duration": 10.005,
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 1561,
+        "audioBitrate": 97,
+        "size": 2076390
+      },
+      "m4v": {
+        "container": "mp4",
+        "duration": 10.005,
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 1561,
+        "audioBitrate": 97,
+        "size": 2076390
+      },
+      "av1": {
+        "container": "webm",
+        "duration": 2.066,
+        "width": 320,
+        "height": 180,
+        "fps": 15,
+        "rotation": 0,
+        "videoCodec": "av01.0.04M.08",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 149,
+        "audioBitrate": 0,
+        "size": 47298
+      },
+      "vp8": {
+        "container": "webm",
+        "duration": 2.033,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "vp8",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 488,
+        "audioBitrate": 0,
+        "size": 132991
+      },
+      "mkv": {
+        "container": "mkv",
+        "duration": 2.033,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "vp09.00.10.08",
+        "audioCodec": "opus",
+        "hasAudio": true,
+        "videoBitrate": 322,
+        "audioBitrate": 65,
+        "size": 116427
+      }
+    },
+    "mp4mp4": {
+      "meta": {
+        "format": "mp4",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "duration": 10.005,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "bitrate": 932,
+        "size": 1165156,
+        "notes": []
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10.005,
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 832,
+        "audioBitrate": 96,
+        "size": 1165156
+      },
+      "audio": {
+        "rms": 0.08525622396953345,
+        "samples": 30720,
+        "codec": "mp4a.40.2",
+        "sampleRate": 48000,
+        "channels": 2,
+        "bitrate": 96
+      },
+      "video": {
+        "duration": 10.005333,
+        "w": 1280,
+        "h": 720
+      },
+      "frame": {
+        "width": 1280,
+        "height": 720,
+        "nonBlackRatio": 0.999931693989071,
+        "avg": {
+          "r": 87.20415690866511,
+          "g": 46.0493950039032,
+          "b": 27.954898516783764
+        },
+        "topLeft": {
+          "r": 253.61443542934416,
+          "g": 44.02924273157539,
+          "b": 48.70081135902637
+        },
+        "topRight": {
+          "r": 52.87077335118848,
+          "g": 45.99782390358219,
+          "b": 19.994308670907266
+        },
+        "bottomLeft": {
+          "r": 114.99949290060852,
+          "g": 37.93881000676132,
+          "b": 26.556118999323868
+        },
+        "bottomRight": {
+          "r": 22.461834616672245,
+          "g": 51.16287244727151,
+          "b": 12.571643789755608
+        }
+      }
+    },
+    "mp4webm": {
+      "meta": {
+        "format": "webm",
+        "width": 854,
+        "height": 480,
+        "fps": 30,
+        "duration": 10.02,
+        "videoCodec": "vp09.00.10.08",
+        "audioCodec": "opus",
+        "bitrate": 693,
+        "size": 868175,
+        "notes": [
+          "输出尺寸 854x480（原 1280x720）"
+        ]
+      },
+      "probe": {
+        "container": "webm",
+        "duration": 10.04,
+        "width": 854,
+        "height": 480,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "vp09.00.10.08",
+        "audioCodec": "opus",
+        "hasAudio": true,
+        "videoBitrate": 576,
+        "audioBitrate": 96,
+        "size": 868175
+      },
+      "audio": {
+        "rms": 0.08639274827898596,
+        "samples": 28488,
+        "codec": "opus",
+        "sampleRate": 48000,
+        "channels": 2,
+        "bitrate": 96
+      },
+      "video": {
+        "duration": 10.02,
+        "w": 854,
+        "h": 480
+      }
+    },
+    "webmmp4": {
+      "meta": {
+        "format": "mp4",
+        "width": 854,
+        "height": 480,
+        "fps": 30,
+        "duration": 10.027,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "bitrate": 851,
+        "size": 1066601,
+        "notes": [
+          "输出尺寸 854x480（原 1280x720）"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10.027,
+        "width": 854,
+        "height": 480,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 753,
+        "audioBitrate": 96,
+        "size": 1066601
+      },
+      "video": {
+        "duration": 10.026667,
+        "w": 854,
+        "h": 480
+      }
+    },
+    "av1mp4": {
+      "meta": {
+        "format": "mp4",
+        "width": 320,
+        "height": 180,
+        "fps": 15,
+        "duration": 2,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "bitrate": 412,
+        "size": 102969,
+        "notes": [
+          "音频已丢弃：按参数丢弃音频"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 2,
+        "width": 320,
+        "height": 180,
+        "fps": 15,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 409,
+        "audioBitrate": 0,
+        "size": 102969
+      }
+    },
+    "vp8mp4": {
+      "meta": {
+        "format": "mp4",
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "duration": 1.999,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "bitrate": 521,
+        "size": 130230,
+        "notes": [
+          "音频已丢弃：按参数丢弃音频"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 2,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 517,
+        "audioBitrate": 0,
+        "size": 130230
+      }
+    },
+    "mkvmp4": {
+      "meta": {
+        "format": "mp4",
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "duration": 2.027,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "mp4a.40.2",
+        "bitrate": 557,
+        "size": 141144,
+        "notes": []
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 2.027,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 459,
+        "audioBitrate": 97,
+        "size": 141144
+      },
+      "audio": {
+        "rms": 0.08416759441757467,
+        "samples": 30720,
+        "codec": "mp4a.40.2",
+        "sampleRate": 48000,
+        "channels": 2,
+        "bitrate": 97
+      }
+    },
+    "movmp4": {
+      "meta": {
+        "format": "mp4",
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "duration": 10,
+        "videoCodec": "avc1.42c015",
+        "audioCodec": "",
+        "bitrate": 318,
+        "size": 397388,
+        "notes": [
+          "输出尺寸 320x180（原 1280x720）",
+          "音频已丢弃：按参数丢弃音频"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c015",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 316,
+        "audioBitrate": 0,
+        "size": 397388
+      }
+    },
+    "repro": {
+      "meta": {
+        "format": "mp4",
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "duration": 10.027,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "mp4a.40.2",
+        "bitrate": 946,
+        "size": 1185693,
+        "notes": [
+          "输出尺寸 640x360（原 1280x720）"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10.027,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 849,
+        "audioBitrate": 96,
+        "size": 1185693
+      },
+      "audio": {
+        "rms": 0.08538938869196466,
+        "samples": 30720,
+        "codec": "mp4a.40.2",
+        "sampleRate": 48000,
+        "channels": 2,
+        "bitrate": 96
+      }
+    },
+    "realMp4": {
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.64001f",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 790,
+        "audioBitrate": 0,
+        "size": 991017
+      },
+      "out": {
+        "meta": {
+          "format": "webm",
+          "width": 640,
+          "height": 360,
+          "fps": 30,
+          "duration": 10,
+          "videoCodec": "vp09.00.10.08",
+          "audioCodec": "",
+          "bitrate": 813,
+          "size": 1016618,
+          "notes": [
+            "音频已丢弃：输入没有音频轨道"
+          ]
+        },
+        "probe": {
+          "container": "webm",
+          "duration": 10.033,
+          "width": 640,
+          "height": 360,
+          "fps": 30,
+          "rotation": 0,
+          "videoCodec": "vp09.00.10.08",
+          "audioCodec": "",
+          "hasAudio": false,
+          "videoBitrate": 802,
+          "audioBitrate": 0,
+          "size": 1016618
+        }
+      }
+    },
+    "realWebm": {
+      "probe": {
+        "container": "webm",
+        "duration": 10.034,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "vp09.00.10.08",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 837,
+        "audioBitrate": 0,
+        "size": 1052940
+      },
+      "out": {
+        "meta": {
+          "format": "mp4",
+          "width": 640,
+          "height": 360,
+          "fps": 30,
+          "duration": 10,
+          "videoCodec": "avc1.42c01e",
+          "audioCodec": "",
+          "bitrate": 729,
+          "size": 911801,
+          "notes": [
+            "音频已丢弃：输入没有音频轨道"
+          ]
+        },
+        "probe": {
+          "container": "mp4",
+          "duration": 10,
+          "width": 640,
+          "height": 360,
+          "fps": 30,
+          "rotation": 0,
+          "videoCodec": "avc1.42c01e",
+          "audioCodec": "",
+          "hasAudio": false,
+          "videoBitrate": 728,
+          "audioBitrate": 0,
+          "size": 911801
+        }
+      }
+    },
+    "aac44": {
+      "probe": {
+        "container": "mp4",
+        "duration": 2.02,
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c015",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 441,
+        "audioBitrate": 98,
+        "size": 136967
+      },
+      "out": {
+        "meta": {
+          "format": "webm",
+          "width": 320,
+          "height": 180,
+          "fps": 30,
+          "duration": 2.04,
+          "videoCodec": "vp09.00.10.08",
+          "audioCodec": "opus",
+          "bitrate": 373,
+          "size": 95117,
+          "notes": []
+        },
+        "probe": {
+          "container": "webm",
+          "duration": 2.06,
+          "width": 320,
+          "height": 180,
+          "fps": 30,
+          "rotation": 0,
+          "videoCodec": "vp09.00.10.08",
+          "audioCodec": "opus",
+          "hasAudio": true,
+          "videoBitrate": 204,
+          "audioBitrate": 97,
+          "size": 95117
+        },
+        "audio": {
+          "rms": 0.08621719089334175,
+          "samples": 28488,
+          "codec": "opus",
+          "sampleRate": 48000,
+          "channels": 2,
+          "bitrate": 97
+        }
+      }
+    },
+    "mono": {
+      "probe": {
+        "container": "webm",
+        "duration": 2.033,
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "vp09.00.10.08",
+        "audioCodec": "opus",
+        "hasAudio": true,
+        "videoBitrate": 203,
+        "audioBitrate": 65,
+        "size": 86283
+      },
+      "mp4": {
+        "meta": {
+          "format": "mp4",
+          "width": 320,
+          "height": 180,
+          "fps": 30,
+          "duration": 2.027,
+          "videoCodec": "avc1.42c015",
+          "audioCodec": "mp4a.40.2",
+          "bitrate": 459,
+          "size": 116297,
+          "notes": []
+        },
+        "probe": {
+          "container": "mp4",
+          "duration": 2.027,
+          "width": 320,
+          "height": 180,
+          "fps": 30,
+          "rotation": 0,
+          "videoCodec": "avc1.42c015",
+          "audioCodec": "mp4a.40.2",
+          "hasAudio": true,
+          "videoBitrate": 360,
+          "audioBitrate": 97,
+          "size": 116297
+        },
+        "audio": {
+          "rms": 0.10096235454459969,
+          "samples": 30720,
+          "codec": "mp4a.40.2",
+          "sampleRate": 48000,
+          "channels": 1,
+          "bitrate": 97
+        }
+      },
+      "webm": {
+        "meta": {
+          "format": "webm",
+          "width": 320,
+          "height": 180,
+          "fps": 30,
+          "duration": 2.02,
+          "videoCodec": "vp09.00.10.08",
+          "audioCodec": "opus",
+          "bitrate": 408,
+          "size": 103008,
+          "notes": []
+        },
+        "audio": {
+          "rms": 0.10251060988791819,
+          "samples": 28488,
+          "codec": "opus",
+          "sampleRate": 48000,
+          "channels": 1,
+          "bitrate": 130
+        }
+      }
+    },
+    "fps24": {
+      "meta": {
+        "format": "mp4",
+        "width": 854,
+        "height": 480,
+        "fps": 24,
+        "duration": 10.008,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "bitrate": 639,
+        "size": 799394,
+        "notes": [
+          "输出尺寸 854x480（原 1280x720）",
+          "帧率 30 → 24 fps（按时间戳丢帧，时长不变）",
+          "音频已丢弃：按参数丢弃音频"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 854,
+        "height": 480,
+        "fps": 24,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 636,
+        "audioBitrate": 0,
+        "size": 799394
+      }
+    },
+    "odd": {
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 642,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 305,
+        "audioBitrate": 0,
+        "size": 383302
+      }
+    },
+    "rotated": {
+      "meta": {
+        "format": "mp4",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "duration": 10.005,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "bitrate": 854,
+        "size": 1068383,
+        "notes": [
+          "已按元数据旋转画面 90°（输出无旋转矩阵）"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10.005,
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 723,
+        "audioBitrate": 128,
+        "size": 1068383
+      },
+      "frame": {
+        "width": 720,
+        "height": 1280,
+        "nonBlackRatio": 0.9999219359875098,
+        "avg": {
+          "r": 87.01233411397345,
+          "g": 46.45736729117877,
+          "b": 28.08064012490242
+        },
+        "topLeft": {
+          "r": 114.6237322515213,
+          "g": 38.48715348208249,
+          "b": 26.38995943204868
+        },
+        "topRight": {
+          "r": 253.09837728194725,
+          "g": 44.469574036511155,
+          "b": 48.59567275185936
+        },
+        "bottomLeft": {
+          "r": 23.274857716772683,
+          "g": 50.637094074322064,
+          "b": 14.672915969199867
+        },
+        "bottomRight": {
+          "r": 51.849179779042515,
+          "g": 46.66705724807499,
+          "b": 19.25862068965517
+        }
+      }
+    },
+    "rot180out": {
+      "meta": {
+        "format": "mp4",
+        "width": 480,
+        "height": 270,
+        "fps": 30,
+        "duration": 10,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "bitrate": 526,
+        "size": 657718,
+        "notes": [
+          "已按元数据旋转画面 180°（输出无旋转矩阵）",
+          "输出尺寸 480x270（原 1280x720）",
+          "音频已丢弃：按参数丢弃音频"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 480,
+        "height": 270,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 525,
+        "audioBitrate": 0,
+        "size": 657718
+      },
+      "frame": {
+        "width": 480,
+        "height": 270,
+        "nonBlackRatio": 1,
+        "avg": {
+          "r": 87.12430555555555,
+          "g": 47.63701388888889,
+          "b": 27.984513888888888
+        },
+        "topLeft": {
+          "r": 22.214114832535884,
+          "g": 51.15191387559808,
+          "b": 12.464114832535886
+        },
+        "topRight": {
+          "r": 114.48484848484848,
+          "g": 39.58158508158508,
+          "b": 25.39044289044289
+        },
+        "bottomLeft": {
+          "r": 51.30502392344498,
+          "g": 47.52392344497608,
+          "b": 18.741626794258373
+        },
+        "bottomRight": {
+          "r": 252.63752913752913,
+          "g": 43.82983682983683,
+          "b": 46.66200466200466
+        }
+      }
+    },
+    "degradeNoAac": {
+      "meta": {
+        "format": "mp4",
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "duration": 10,
+        "videoCodec": "avc1.42c015",
+        "audioCodec": "",
+        "bitrate": 264,
+        "size": 330169,
+        "notes": [
+          "输出尺寸 320x180（原 1280x720）",
+          "音频已丢弃：AAC 音频编码不可用"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c015",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 263,
+        "audioBitrate": 0,
+        "size": 330169
+      }
+    },
+    "degradeNoDecode": {
+      "meta": {
+        "format": "mp4",
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "duration": 9.999,
+        "videoCodec": "avc1.42c015",
+        "audioCodec": "",
+        "bitrate": 266,
+        "size": 332665,
+        "notes": [
+          "输出尺寸 320x180（原 1280x720）",
+          "音频已丢弃：WebCodecs 无法解码输入音频编码 opus"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 320,
+        "height": 180,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c015",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 265,
+        "audioBitrate": 0,
+        "size": 332665
+      }
+    },
+    "cancel": {
+      "message": "已取消",
+      "ms": 257
+    },
+    "totalMs": 17726,
+    "failed": 0
+  },
+  "fileProtocol": {
+    "secure": true,
+    "probe": {
+      "container": "webm",
+      "duration": 2.033,
+      "width": 640,
+      "height": 360,
+      "fps": 30,
+      "rotation": 0,
+      "videoCodec": "vp8",
+      "audioCodec": "",
+      "hasAudio": false,
+      "videoBitrate": 488,
+      "audioBitrate": 0,
+      "size": 132991
+    },
+    "out": {
+      "container": "mp4",
+      "duration": 2,
+      "width": 320,
+      "height": 180,
+      "fps": 30,
+      "rotation": 0,
+      "videoCodec": "avc1.42c015",
+      "audioCodec": "",
+      "hasAudio": false,
+      "videoBitrate": 399,
+      "audioBitrate": 0,
+      "size": 100730
+    },
+    "size": 100730,
+    "notes": [
+      "输出尺寸 320x180（原 640x360）",
+      "音频已丢弃：按参数丢弃音频"
+    ],
+    "videoEngine": "object"
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+}

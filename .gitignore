@@ -1,5 +1,14 @@
-# 桌面工作副本（发布入口为 index.html）
+# 发布入口（旧单文件版，已由拆分版取代）
 工具台.html
+qb.html
 
-# 本地验证 / 临时文件
-_*
+# 本地工具链 / 测试素材 / 截图 / 克隆副本
+_build/tools/
+_build/samples/
+_build/shots/
+_build/original/
+_build/repo/
+__pycache__/
+*.pyc
+*.log
+*.zip

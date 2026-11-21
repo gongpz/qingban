@@ -1,0 +1,474 @@
+  <!-- ============ 面板 5：音频压缩转换 ============ -->
+  <section class="panel" id="panel-audio">
+    <div class="col3">
+      <!-- 左：输出设置 -->
+      <div class="col-side">
+        <div class="sec">
+          <div class="sec-title">01 · 输出格式</div>
+          <div class="fmt-grid" id="auFmtGrid">
+            <button type="button" class="fmt-chip on" data-fmt="mp3"><b>MP3</b><span>通用 · 体积小</span></button>
+            <button type="button" class="fmt-chip" data-fmt="flac"><b>FLAC</b><span>无损压缩</span></button>
+            <button type="button" class="fmt-chip" data-fmt="wav"><b>WAV</b><span>无损 PCM</span></button>
+            <button type="button" class="fmt-chip" data-fmt="aac"><b>AAC</b><span>高效有损</span></button>
+            <button type="button" class="fmt-chip" data-fmt="ogg"><b>OGG</b><span>Opus 开源</span></button>
+          </div>
+          <div class="hint" id="auFmtNote">兼容性最好，适合大多数场景。</div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">02 · 编码参数</div>
+          <div class="field" id="auBitrateField">
+            <div class="field-head"><span class="field-label">目标码率</span><span class="field-value" id="auBrVal">192 kbps</span></div>
+            <input type="range" id="auBitrate" min="0" max="5" step="1" value="3">
+            <div class="hint" id="auBrHint">码率越低体积越小，语音可用 64 kbps。</div>
+          </div>
+          <div class="field hidden" id="auDepthField">
+            <label>位深</label>
+            <select class="input" id="auDepth">
+              <option value="16" selected>16 bit（CD 标准）</option>
+              <option value="24">24 bit（高精度）</option>
+              <option value="32f">32 bit 浮点</option>
+            </select>
+          </div>
+          <div class="field hidden" id="auLevelField">
+            <div class="field-head"><span class="field-label">压缩级别</span><span class="field-value" id="auLevelVal">5</span></div>
+            <input type="range" id="auLevel" min="0" max="8" step="1" value="5">
+            <div class="hint">级别越高压缩越充分，编码稍慢。</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">03 · 采样与声道</div>
+          <div class="field">
+            <label>采样率</label>
+            <select class="input" id="auSampleRate">
+              <option value="0" selected>保持原样</option>
+              <option value="8000">8000 Hz（电话）</option>
+              <option value="16000">16000 Hz（语音）</option>
+              <option value="22050">22050 Hz</option>
+              <option value="32000">32000 Hz</option>
+              <option value="44100">44100 Hz（CD）</option>
+              <option value="48000">48000 Hz</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>声道</label>
+            <select class="input" id="auChannels">
+              <option value="0" selected>保持原样</option>
+              <option value="1">单声道（体积减半）</option>
+              <option value="2">立体声</option>
+            </select>
+          </div>
+          <label class="chk" style="margin-top:2px"><input type="checkbox" id="auNormalize"><span><b>峰值标准化</b><small>统一音量到 -1 dBFS，避免音量忽大忽小</small></span></label>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">04 · 快速预设</div>
+          <div class="au-preset" id="auPreset">
+            <button type="button" data-preset="voice"><b>语音</b><small>64k · 单声道</small></button>
+            <button type="button" data-preset="podcast"><b>播客</b><small>96k · 立体声</small></button>
+            <button type="button" data-preset="music"><b>音乐</b><small>192k · 立体声</small></button>
+          </div>
+          <div class="field" style="margin-top:14px">
+            <label>输出文件名</label>
+            <select class="input" id="auNameMode">
+              <option value="suffix" selected>原名 + "_压缩"</option>
+              <option value="fmt">原名 + "_" + 格式</option>
+              <option value="same">保持原名</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中：导入 / 队列 -->
+      <div class="col-mid" style="display:flex;flex-direction:column;min-height:0">
+        <div style="padding:18px 20px 0">
+          <div class="drop" id="auDrop">
+            <div class="drop-title">拖入音频文件，或点击选择</div>
+            <div class="drop-sub">MP3 / WAV / FLAC / AAC(M4A) / OGG / Opus / WMA / APE · 可批量<br>文件只在本机浏览器内解码与编码，不上传服务器</div>
+            <button class="drop-btn" id="auPickBtn" type="button">选择文件</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;flex:none">
+          <span style="font-size:13px;font-weight:600">文件队列 <span class="state ready" id="auCount" style="margin-left:6px">0 个文件</span></span>
+          <button class="btn ghost" id="auClearList" type="button">清空列表</button>
+        </div>
+        <div class="list" id="auList" style="padding:0 20px 20px;flex:1;overflow:auto;min-height:120px">
+          <div class="empty" style="border:0">还没有添加音频文件</div>
+        </div>
+        <div class="progress-line" style="flex:none"><i id="auGlobalBar"></i></div>
+      </div>
+
+      <!-- 右：汇总 / 操作 -->
+      <div class="col-right">
+        <div class="col-right-head">
+          <h2 class="col-right-title">音频压缩转换</h2>
+          <p class="col-right-sub">在 MP3、FLAC、WAV、AAC、OGG 之间互转，按码率 / 采样率 / 声道重新编码，体积可缩至原来的 10–30%。</p>
+        </div>
+        <div class="col-right-body">
+          <div class="summary" style="flex-direction:row;justify-content:flex-start;gap:18px;flex-wrap:wrap">
+            <div class="stat"><span class="stat-label">文件总数</span><span class="stat-value" id="auSumTotal">0</span></div>
+            <div class="stat"><span class="stat-label">已完成</span><span class="stat-value hl" id="auSumDone">0</span></div>
+          </div>
+          <div class="summary" style="flex-direction:row;justify-content:flex-start;gap:18px;flex-wrap:wrap">
+            <div class="stat"><span class="stat-label">原始大小</span><span class="stat-value" id="auSumIn" style="font-size:12px">0 B</span></div>
+            <div class="stat"><span class="stat-label">输出大小</span><span class="stat-value" id="auSumOut" style="font-size:12px">0 B</span></div>
+          </div>
+          <div class="au-outbox" id="auOutBox">
+            <div class="au-out-fmt">MP3</div>
+            <div class="au-out-meta">192 kbps · 保持原样采样率 · 保持原声道</div>
+          </div>
+          <div class="callout" style="font-size:11px" id="auSupportNote">
+            <strong>本地处理</strong>：MP3 / WAV / FLAC / AAC / OGG 由浏览器内核直接解码；WMA / APE 由内置解码器（LGPL）解为 PCM 后重新编码，文件不会离开本机。
+          </div>
+        </div>
+        <div class="col-right-foot">
+          <button class="btn primary" id="auStart" disabled style="width:100%;justify-content:center;height:46px" type="button">开始转换</button>
+          <button class="btn" id="auZip" disabled style="width:100%;justify-content:center" type="button">打包下载全部</button>
+          <button class="btn ghost" id="auClearAll" disabled style="width:100%;justify-content:center" type="button">清空</button>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="auPicker" multiple hidden accept="audio/*,.mp3,.wav,.flac,.m4a,.aac,.ogg,.oga,.opus,.wma,.ape,.aif,.aiff,.webm,.caf">
+  </section>
+
+  <!-- ============ 面板 6：二维码 / 条形码 ============ -->
+  <section class="panel" id="panel-code">
+    <div class="code-tabs" id="codeTabs">
+      <button class="code-tab on" data-tab="qr" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20v.01M18 18h3v3h-3z"/></svg>
+        二维码生成
+      </button>
+      <button class="code-tab" data-tab="bar" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5v14M7 5v14M10.5 5v14M14 5v14M17 5v14M20 5v14"/></svg>
+        条形码生成
+      </button>
+      <button class="code-tab" data-tab="dec" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2"/><path d="M4 12h16"/></svg>
+        扫码识别
+      </button>
+    </div>
+
+    <!-- 面板 6-1：二维码生成 -->
+    <div class="col3" id="codeQr">
+      <div class="col-side">
+        <div class="sec">
+          <div class="sec-title">01 · 内容</div>
+          <div class="type-chips" id="qrTypeChips" style="grid-template-columns:repeat(3,1fr);margin-bottom:10px">
+            <button type="button" class="type-chip on" data-type="text">文本</button>
+            <button type="button" class="type-chip" data-type="url">网址</button>
+            <button type="button" class="type-chip" data-type="wifi">WiFi</button>
+            <button type="button" class="type-chip" data-type="vcard">名片</button>
+            <button type="button" class="type-chip" data-type="sms">短信</button>
+            <button type="button" class="type-chip" data-type="tel">电话</button>
+          </div>
+          <div id="qrFields">
+            <div class="field" data-field="text">
+              <textarea class="input" id="qrText" placeholder="输入要编码的文字、链接或任意内容…">轻办 · 本地工具</textarea>
+            </div>
+          </div>
+          <div class="hint" id="qrCapHint">当前 0 字节 · 单码上限约 2953 字节</div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">02 · 纠错与尺寸</div>
+          <div class="field">
+            <label>纠错等级</label>
+            <div class="seg" id="qrEclSeg">
+              <button type="button" data-v="L">L 7%</button>
+              <button type="button" data-v="M" class="on">M 15%</button>
+              <button type="button" data-v="Q">Q 25%</button>
+              <button type="button" data-v="H">H 30%</button>
+            </div>
+            <div class="hint" id="qrEclHint">M 级容错 15%，带 Logo 建议选 H。</div>
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-label">输出尺寸</span><span class="field-value" id="qrSizeVal">512 px</span></div>
+            <input type="range" id="qrSize" min="128" max="2048" step="64" value="512">
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-label">静区边距</span><span class="field-value" id="qrMarginVal">4</span></div>
+            <input type="range" id="qrMargin" min="0" max="8" step="1" value="4">
+            <div class="hint">扫码规范建议至少 4 个模块的白色边距。</div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">03 · 外观</div>
+          <div class="field">
+            <div class="code-color-row">
+              <input type="color" id="qrFg" value="#2b2013">
+              <input type="color" id="qrBg" value="#ffffff">
+              <span class="hint" style="margin:0">前景 / 背景</span>
+            </div>
+            <div class="code-swatches" id="qrSwatches">
+              <span class="code-swatch" data-fg="#2b2013" data-bg="#ffffff" style="background:#2b2013" title="墨黑"></span>
+              <span class="code-swatch" data-fg="#e8890c" data-bg="#ffffff" style="background:#e8890c" title="品牌橙"></span>
+              <span class="code-swatch" data-fg="#0f766e" data-bg="#ffffff" style="background:#0f766e" title="墨绿"></span>
+              <span class="code-swatch" data-fg="#1d4ed8" data-bg="#ffffff" style="background:#1d4ed8" title="藏蓝"></span>
+              <span class="code-swatch" data-fg="#7c3aed" data-bg="#ffffff" style="background:#7c3aed" title="紫"></span>
+              <span class="code-swatch" data-fg="#c2410c" data-bg="#ffffff" data-fg2="#e8890c" style="background:linear-gradient(135deg,#c2410c,#e8890c)" title="橙棕渐变"></span>
+              <span class="code-swatch" data-fg="#1d4ed8" data-bg="#ffffff" data-fg2="#7c3aed" style="background:linear-gradient(135deg,#1d4ed8,#7c3aed)" title="蓝紫渐变"></span>
+              <span class="code-swatch" data-fg="#ffffff" data-bg="#12192a" style="background:#12192a" title="反色"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label>码点形状</label>
+            <div class="seg" id="qrDotSeg">
+              <button type="button" data-v="square" class="on">方块</button>
+              <button type="button" data-v="round">圆角</button>
+              <button type="button" data-v="dot">圆点</button>
+              <button type="button" data-v="diamond">菱形</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>定位点样式</label>
+            <div class="seg" id="qrFinderSeg">
+              <button type="button" data-v="square" class="on">方形</button>
+              <button type="button" data-v="round">圆角</button>
+              <button type="button" data-v="circle">圆形</button>
+            </div>
+          </div>
+          <div class="field">
+            <label class="switch"><span>前景渐变</span><input type="checkbox" id="qrGrad"></label>
+            <div class="code-color-row" style="margin-top:8px">
+              <input type="color" id="qrFg2" value="#f5a623" title="渐变第二色">
+              <div class="seg" id="qrGradDir" style="flex:1;height:32px">
+                <button type="button" data-v="diag" class="on">对角</button>
+                <button type="button" data-v="h">水平</button>
+                <button type="button" data-v="v">垂直</button>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="switch"><span>透明背景</span><input type="checkbox" id="qrTransparent"></label>
+            <div class="hint">导出 PNG 时保留透明区域，便于叠加到海报或深色背景。</div>
+          </div>
+          <div class="field">
+            <label>风格预设</label>
+            <div class="qr-presets" id="qrPresets">
+              <button type="button" data-preset="classic" class="on">经典</button>
+              <button type="button" data-preset="dot">圆点</button>
+              <button type="button" data-preset="grad">渐变</button>
+              <button type="button" data-preset="invert">反色</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>中心 Logo（可选）</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn" id="qrLogoPick" type="button" style="height:34px;padding:0 12px;font-size:12px">选择图片</button>
+              <button class="btn ghost" id="qrLogoClear" type="button" style="display:none">移除</button>
+              <span class="hint" id="qrLogoName" style="margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">未选择</span>
+            </div>
+            <input type="file" id="qrLogoInput" accept="image/*" hidden>
+            <div class="field-head" style="margin-top:12px"><span class="field-label">Logo 大小</span><span class="field-value" id="qrLogoSizeVal">20%</span></div>
+            <input type="range" id="qrLogoSize" min="14" max="30" step="1" value="20">
+            <div class="seg" id="qrLogoShape" style="margin-top:8px;height:32px">
+              <button type="button" data-v="square" class="on">方形</button>
+              <button type="button" data-v="circle">圆形</button>
+            </div>
+            <label class="switch" style="margin-top:8px"><span>Logo 白色衬底</span><input type="checkbox" id="qrLogoPad" checked></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-mid" style="display:flex;flex-direction:column;min-height:0">
+        <div class="qr-stage">
+          <div class="qr-canvas-wrap">
+            <canvas id="qrCanvas" width="512" height="512"></canvas>
+            <div class="qr-err hidden" id="qrErr"></div>
+          </div>
+          <div class="qr-info" id="qrInfo">
+            <span class="qr-pill">版本 <b id="qrVersion">—</b></span>
+            <span class="qr-pill">模块 <b id="qrModules">—</b></span>
+            <span class="qr-pill">纠错 <b id="qrEclOut">—</b></span>
+            <span class="qr-pill">内容 <b id="qrBytes">—</b> 字节</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-right">
+        <div class="col-right-head">
+          <h2 class="col-right-title">二维码生成</h2>
+          <p class="col-right-sub">网址、文字、WiFi、名片等一键生成二维码；可调纠错等级、颜色、码点形状并添加中心 Logo，支持 PNG / SVG 导出。</p>
+        </div>
+        <div class="col-right-body">
+          <div class="callout" style="font-size:11px">
+            <strong>提示</strong>：二维码容量有限（约 2.9 KB 字节模式）。内容越长模块越密，打印或远距离扫码时建议缩短内容或提高纠错等级。
+          </div>
+          <div class="form" style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn primary" id="qrDownloadPng" type="button" style="justify-content:center;height:42px">下载 PNG</button>
+            <button class="btn" id="qrDownloadSvg" type="button" style="justify-content:center">下载 SVG（矢量）</button>
+            <button class="btn" id="qrCopy" type="button" style="justify-content:center">复制图片到剪贴板</button>
+            <button class="btn ghost" id="qrPrint" type="button" style="justify-content:center">打印 / 另存 PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 面板 6-2：条形码生成 -->
+    <div class="col3 hidden" id="codeBar">
+      <div class="col-side">
+        <div class="sec">
+          <div class="sec-title">01 · 条码类型</div>
+          <div class="type-chips" id="barTypeChips" style="grid-template-columns:repeat(3,1fr)">
+            <button type="button" class="type-chip on" data-type="code128">Code 128</button>
+            <button type="button" class="type-chip" data-type="code39">Code 39</button>
+            <button type="button" class="type-chip" data-type="ean13">EAN-13</button>
+            <button type="button" class="type-chip" data-type="ean8">EAN-8</button>
+            <button type="button" class="type-chip" data-type="upca">UPC-A</button>
+            <button type="button" class="type-chip" data-type="itf14">ITF-14</button>
+          </div>
+          <div class="hint" id="barTypeHint">Code 128 支持全部 ASCII 字符，密度最高。</div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">02 · 内容</div>
+          <div class="field">
+            <label id="barLabel">条码内容</label>
+            <input class="input" id="barText" value="LIGHTWORK-2026" placeholder="输入内容…">
+            <div class="hint" id="barTextHint">支持数字、字母与符号；长度 1–80。</div>
+            <div class="notice danger hidden" id="barWarn" style="margin-top:8px"></div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">03 · 外观</div>
+          <div class="field">
+            <div class="field-head"><span class="field-label">模块宽度</span><span class="field-value" id="barBarWidthVal">3 px</span></div>
+            <input type="range" id="barBarWidth" min="1" max="6" step="1" value="3">
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-label">条码高度</span><span class="field-value" id="barHeightVal">120 px</span></div>
+            <input type="range" id="barHeight" min="40" max="260" step="10" value="120">
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-label">静区宽度</span><span class="field-value" id="barQuietVal">10 模块</span></div>
+            <input type="range" id="barQuiet" min="2" max="20" step="1" value="10">
+            <div class="hint">条码左右留白，过窄会影响扫码识别。</div>
+          </div>
+          <div class="field">
+            <div class="field-head"><span class="field-label">文字大小</span><span class="field-value" id="barFontVal">16 px</span></div>
+            <input type="range" id="barFont" min="0" max="40" step="2" value="16">
+          </div>
+          <div class="field">
+            <label>文字位置</label>
+            <div class="seg" id="barLabelPos">
+              <button type="button" data-v="bottom" class="on">下方</button>
+              <button type="button" data-v="top">上方</button>
+              <button type="button" data-v="none">不显示</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>自定义文字</label>
+            <input class="input" id="barCaption" placeholder="留空则显示条码内容，如 ￥199.00">
+            <div class="hint">可写价格、规格、生产日期等，用于标签排版。</div>
+          </div>
+          <div class="field">
+            <label>外框样式</label>
+            <div class="seg" id="barBorderSeg">
+              <button type="button" data-v="none" class="on">无</button>
+              <button type="button" data-v="frame">浅灰细框</button>
+              <button type="button" data-v="corner">四角标</button>
+            </div>
+            <div class="hint">深色实线框会干扰扫码，细框已使用浅灰色。</div>
+            <label class="switch" style="margin-top:10px"><span>透明背景</span><input type="checkbox" id="barTransparent"></label>
+          </div>
+          <div class="field">
+            <div class="code-color-row">
+              <input type="color" id="barFg" value="#2b2013">
+              <input type="color" id="barBg" value="#ffffff">
+              <span class="hint" style="margin:0">条色 / 底色</span>
+            </div>
+            <div class="code-swatches" id="barSwatches">
+              <span class="code-swatch" data-fg="#2b2013" data-bg="#ffffff" style="background:#2b2013" title="墨黑"></span>
+              <span class="code-swatch" data-fg="#1d4ed8" data-bg="#ffffff" style="background:#1d4ed8" title="藏蓝"></span>
+              <span class="code-swatch" data-fg="#b91c1c" data-bg="#ffffff" style="background:#b91c1c" title="深红"></span>
+              <span class="code-swatch" data-fg="#15803d" data-bg="#ffffff" style="background:#15803d" title="墨绿"></span>
+              <span class="code-swatch" data-fg="#ffffff" data-bg="#12192a" style="background:#12192a" title="反色"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-mid" style="display:flex;flex-direction:column;min-height:0">
+        <div class="qr-stage">
+          <div class="qr-canvas-wrap" id="barStage">
+            <canvas id="barCanvas" width="600" height="160"></canvas>
+            <div class="qr-err hidden" id="barErr"></div>
+          </div>
+          <div class="qr-info" id="barInfo">
+            <span class="qr-pill">类型 <b id="barTypeOut">—</b></span>
+            <span class="qr-pill">模块数 <b id="barModulesOut">—</b></span>
+            <span class="qr-pill">编码内容 <b id="barTextOut">—</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-right">
+        <div class="col-right-head">
+          <h2 class="col-right-title">条形码生成</h2>
+          <p class="col-right-sub">支持 Code 128、Code 39、EAN-13、EAN-8、UPC-A、ITF-14，自动补全校验位，可导出 PNG / SVG 用于标签、吊牌与包装。</p>
+        </div>
+        <div class="col-right-body">
+          <div class="callout" style="font-size:11px">
+            <strong>校验位</strong>：EAN-13 输入 12 位、EAN-8 输入 7 位、UPC-A 输入 11 位时会自动计算最后一位校验码。
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn primary" id="barDownloadPng" type="button" style="justify-content:center;height:42px">下载 PNG</button>
+            <button class="btn" id="barDownloadSvg" type="button" style="justify-content:center">下载 SVG（矢量）</button>
+            <button class="btn" id="barCopy" type="button" style="justify-content:center">复制图片到剪贴板</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 面板 6-3：扫码识别 -->
+    <div class="col3 hidden" id="codeDec">
+      <div class="col-side">
+        <div class="sec">
+          <div class="sec-title">01 · 识别选项</div>
+          <label class="chk" style="margin-bottom:12px"><input type="checkbox" id="decInvert" checked><span><b>尝试反色</b><small>深底浅码的截图也能识别</small></span></label>
+          <label class="chk"><input type="checkbox" id="decRotate" checked><span><b>自动旋转</b><small>识别 90° / 180° / 270° 旋转的条码</small></span></label>
+          <div class="au-warn" id="decCap" style="display:none"></div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">02 · 导入</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <button class="btn" id="decPick" type="button" style="justify-content:center">选择图片文件</button>
+            <button class="btn" id="decPaste" type="button" style="justify-content:center">从剪贴板粘贴</button>
+            <button class="btn ghost" id="decClear" type="button" style="justify-content:center">清空结果</button>
+          </div>
+          <div class="hint" style="margin-top:10px">也可直接把截图拖到右侧区域。</div>
+        </div>
+      </div>
+
+      <div class="col-mid" style="display:flex;flex-direction:column;min-height:0;padding:18px 20px;overflow:auto">
+        <div class="drop dec-drop" id="decDrop" style="flex:none">
+          <div class="drop-title">拖入二维码 / 条码图片</div>
+          <div class="drop-sub">支持 PNG / JPG / WebP / BMP / GIF 首帧 · Ctrl+V 直接粘贴截图</div>
+          <button class="drop-btn" id="decPickBtn2" type="button">选择图片</button>
+        </div>
+        <div class="dec-preview" id="decPreview"><img id="decImg" alt="待识别图片"></div>
+        <div class="dec-list" id="decList">
+          <div class="dec-empty">识别结果会显示在这里<br>支持二维码、Code 128、Code 39、EAN-13/8、UPC-A</div>
+        </div>
+      </div>
+
+      <div class="col-right">
+        <div class="col-right-head">
+          <h2 class="col-right-title">扫码识别</h2>
+          <p class="col-right-sub">上传或粘贴含二维码 / 条形码的图片，本地解析出原始内容；识别到的网址可直接打开，文本一键复制。</p>
+        </div>
+        <div class="col-right-body">
+          <div class="callout" style="font-size:11px">
+            <strong>识别提示</strong>：图片越清晰、条码在画面中占比越大越容易识别。手机拍摄的截图建议先裁剪到条码附近。
+          </div>
+          <div class="summary" style="flex-direction:row;justify-content:flex-start;gap:18px;flex-wrap:wrap">
+            <div class="stat"><span class="stat-label">识别到</span><span class="stat-value hl" id="decCount">0</span></div>
+            <div class="stat"><span class="stat-label">耗时</span><span class="stat-value" id="decTime" style="font-size:12px">—</span></div>
+          </div>
+        </div>
+        <div class="col-right-foot">
+          <button class="btn primary" id="decAgain" type="button" style="width:100%;justify-content:center;height:44px" disabled>重新识别</button>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="decPicker" accept="image/*" hidden>
+  </section>

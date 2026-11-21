@@ -1,0 +1,367 @@
+{
+  "when": "2026-11-21T03:28:18.492Z",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36 Edg/152.0.0.0",
+  "secure": true,
+  "protocol": "file://",
+  "results": {
+    "checks": [
+      {
+        "name": "support(): decode.hevc 原生能力如实上报",
+        "pass": true,
+        "detail": "false"
+      },
+      {
+        "name": "support(): decode.hevcSoftware = true",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "VideoEngine.hevcSoftware = true",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "probe(竖屏 HEVC) 容器 mp4",
+        "pass": true,
+        "detail": "mp4"
+      },
+      {
+        "name": "probe(竖屏 HEVC) 旋转 90 / 720x1280",
+        "pass": true,
+        "detail": "90° 720x1280"
+      },
+      {
+        "name": "probe(竖屏 HEVC) 编码 hvc1",
+        "pass": true,
+        "detail": "hvc1.1.6.L93.90"
+      },
+      {
+        "name": "probe(竖屏 HEVC) 时长≈10s",
+        "pass": true,
+        "detail": "10.023"
+      },
+      {
+        "name": "probe(竖屏 HEVC) 带 AAC 音频",
+        "pass": true,
+        "detail": "mp4a.40.2 96kbps"
+      },
+      {
+        "name": "probe(hvc1.1.6.H120.90) 编码串匹配 iPhone",
+        "pass": true,
+        "detail": "hvc1.1.6.H120.90"
+      },
+      {
+        "name": "probe(hvc1.1.6.H120.90) 1920x1080",
+        "pass": true,
+        "detail": "1920x1080"
+      },
+      {
+        "name": "probe(hev1) 编码 hev1",
+        "pass": true,
+        "detail": "hev1.1.6.L63.90"
+      },
+      {
+        "name": "hev1→MP4 成功（软解）",
+        "pass": true,
+        "detail": "mp4 640x360 1412ms"
+      },
+      {
+        "name": "hev1→MP4 时长误差 <0.4s",
+        "pass": true,
+        "detail": "10 vs 10"
+      },
+      {
+        "name": "hev1→MP4 notes 注明软解",
+        "pass": true,
+        "detail": "音频已丢弃：按参数丢弃音频 | HEVC 使用内置软解（@hevcjs/core wasm），时间戳按恒定帧率估算，转码较慢"
+      },
+      {
+        "name": "hev1→MP4 进度单调且到 1",
+        "pass": true,
+        "detail": "{\"bad\":0,\"count\":26,\"first\":0,\"last\":1}"
+      },
+      {
+        "name": "hev1→MP4 <video> 可加载且首帧非黑",
+        "pass": true,
+        "detail": "duration=10 nonBlack=100%"
+      },
+      {
+        "name": "竖屏 HEVC→MP4 720x1280 / rotation=0",
+        "pass": true,
+        "detail": "720x1280 rot=0"
+      },
+      {
+        "name": "竖屏 HEVC→MP4 时长误差 <0.4s",
+        "pass": true,
+        "detail": "10.031 vs 10.023"
+      },
+      {
+        "name": "竖屏 HEVC→MP4 AAC 保留且非静音",
+        "pass": true,
+        "detail": "{\"hasAudio\":true,\"rms\":0.1936}"
+      },
+      {
+        "name": "竖屏 HEVC→MP4 meta.notes 含软解说明",
+        "pass": true,
+        "detail": "已按元数据旋转画面 90°（输出无旋转矩阵） | HEVC 使用内置软解（@hevcjs/core wasm），时间戳按恒定帧率估算，转码较慢"
+      },
+      {
+        "name": "竖屏 HEVC→MP4 进度单调且到 1",
+        "pass": true,
+        "detail": "{\"bad\":0,\"count\":58,\"first\":0,\"last\":1}"
+      },
+      {
+        "name": "竖屏 HEVC→MP4 <video> 尺寸/时长/首帧",
+        "pass": true,
+        "detail": "{\"w\":720,\"h\":1280,\"dur\":10.03102,\"nonBlack\":0.9865700954861111}"
+      },
+      {
+        "name": "1080p HEVC 软解→H.264 成功",
+        "pass": true,
+        "detail": "1920x1080 avc1.42c029"
+      },
+      {
+        "name": "1080p 转码时长误差 <0.4s",
+        "pass": true,
+        "detail": "10 vs 10"
+      },
+      {
+        "name": "1080p 软解速度 > 10 fps",
+        "pass": true,
+        "detail": "37.84 fps，1.26× 实时，68s 预估 53.9s"
+      },
+      {
+        "name": "1080p 输出 <video> 可加载且首帧非黑",
+        "pass": true,
+        "detail": "duration=10 nonBlack=100%"
+      },
+      {
+        "name": "软解取消：reject 已取消",
+        "pass": true,
+        "detail": "已取消"
+      },
+      {
+        "name": "软解取消：快速停止（<6s）",
+        "pass": true,
+        "detail": "332ms"
+      },
+      {
+        "name": "软解取消后再次转码可用",
+        "pass": true,
+        "detail": "407753 B"
+      },
+      {
+        "name": "构造 4:2:2 hvcC 成功",
+        "pass": true,
+        "detail": "patched"
+      },
+      {
+        "name": "4:2:2 输入明确报错（不花屏）",
+        "pass": true,
+        "detail": "HEVC 软解仅支持 4:2:0（当前 chroma_format_idc=2），4:2:2/4:4:4 不受支持"
+      }
+    ],
+    "errors": [],
+    "timing": {
+      "probeMs": 15,
+      "hev1Ms": 1412,
+      "portraitMs": 3662
+    },
+    "files": [
+      "hevc-portrait-rot90.mp4:1882373",
+      "hevc-1080-hvc1-H120.mp4:5251468",
+      "hevc-360-1mb.mp4:1057627"
+    ],
+    "support": {
+      "webcodecs": true,
+      "decode": {
+        "h264": true,
+        "vp8": true,
+        "vp9": true,
+        "av1": true,
+        "hevc": false,
+        "hevcSoftware": true
+      },
+      "encode": {
+        "h264": true,
+        "vp9": true,
+        "av1": true,
+        "vp8": true
+      },
+      "audioEncode": {
+        "aac": true,
+        "opus": true
+      },
+      "containers": {
+        "mp4": true,
+        "webm": true
+      }
+    },
+    "probe": {
+      "portrait": {
+        "container": "mp4",
+        "duration": 10.023,
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "rotation": 90,
+        "videoCodec": "hvc1.1.6.L93.90",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 1397,
+        "audioBitrate": 96,
+        "size": 1882373
+      },
+      "hvc1H120": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "hvc1.1.6.H120.90",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 4196,
+        "audioBitrate": 0,
+        "size": 5251468
+      },
+      "hev1": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "hev1.1.6.L63.90",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 841,
+        "audioBitrate": 0,
+        "size": 1057627
+      }
+    },
+    "hev1": {
+      "meta": {
+        "format": "mp4",
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "duration": 10,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "bitrate": 739,
+        "size": 923643,
+        "notes": [
+          "音频已丢弃：按参数丢弃音频",
+          "HEVC 使用内置软解（@hevcjs/core wasm），时间戳按恒定帧率估算，转码较慢"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 640,
+        "height": 360,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01e",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 737,
+        "audioBitrate": 0,
+        "size": 923643
+      },
+      "ms": 1412
+    },
+    "portrait": {
+      "meta": {
+        "format": "mp4",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "duration": 10.031,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "bitrate": 2147,
+        "size": 2692161,
+        "notes": [
+          "已按元数据旋转画面 90°（输出无旋转矩阵）",
+          "HEVC 使用内置软解（@hevcjs/core wasm），时间戳按恒定帧率估算，转码较慢"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10.031,
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c01f",
+        "audioCodec": "mp4a.40.2",
+        "hasAudio": true,
+        "videoBitrate": 2054,
+        "audioBitrate": 96,
+        "size": 2692161
+      },
+      "audio": {
+        "rms": 0.1936251650789352,
+        "samples": 30720,
+        "codec": "mp4a.40.2",
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitrate": 96
+      },
+      "ms": 3662,
+      "play": {
+        "w": 720,
+        "h": 1280,
+        "dur": 10.03102,
+        "nonBlack": 0.9865700954861111
+      }
+    },
+    "hd": {
+      "ms": 7928,
+      "meta": {
+        "format": "mp4",
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 10,
+        "videoCodec": "avc1.42c029",
+        "audioCodec": "",
+        "bitrate": 4110,
+        "size": 5137976,
+        "notes": [
+          "音频已丢弃：按参数丢弃音频",
+          "HEVC 使用内置软解（@hevcjs/core wasm），时间戳按恒定帧率估算，转码较慢"
+        ]
+      },
+      "probe": {
+        "container": "mp4",
+        "duration": 10,
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "rotation": 0,
+        "videoCodec": "avc1.42c029",
+        "audioCodec": "",
+        "hasAudio": false,
+        "videoBitrate": 4109,
+        "audioBitrate": 0,
+        "size": 5137976
+      },
+      "frames": 300,
+      "decodeEncodeFps": 37.84,
+      "realtimeFactor": 1.26,
+      "estimate68sSec": 53.9
+    },
+    "cancel": {
+      "message": "已取消",
+      "ms": 332
+    },
+    "chroma422": "HEVC 软解仅支持 4:2:0（当前 chroma_format_idc=2），4:2:2/4:4:4 不受支持",
+    "totalMs": 17754,
+    "failed": 0
+  },
+  "consoleErrors": []
+}
