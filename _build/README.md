@@ -1,14 +1,17 @@
-# 轻办 qb.html · 新增功能构建说明
+# 轻办 · 构建说明（拆分版）
 
-本目录是 `qb.html` 的**源码拆分 + 可重复构建 + 自动化测试**工作区。
-`qb.html` 由 `qb.base.html`（原始版本快照）与下列片段合并生成，不要直接手改生成后的 `qb.html`（下次构建会被覆盖）。
+本目录是**源码拆分 + 可重复构建 + 自动化测试**工作区。
+应用由 `qb.base.html`（原始版本快照）与下列片段合并生成，不要直接手改生成的 `index.html` / `assets/`（下次构建会被覆盖）。
 
-构建会同时产出两个版本：
+产物：
 
 | 产物 | 说明 |
 |---|---|
-| `../qb.html` | **单文件版**：所有库与脚本内联，可以单独拷贝到任何电脑双击使用 |
-| `../qb-拆分版/index.html` + `assets/` | **拆分版**：库与面板脚本放在 `assets/`，`index.html` 仅约 1 MB，便于查看/修改；整个文件夹一起拷贝即可 |
+| `../qb-拆分版/index.html` + `assets/` | **唯一发布版本（拆分版）**：库与面板脚本放在 `assets/`，`index.html` 约 1 MB，整个文件夹一起拷贝即可 |
+| `../qb.html` | 可选单文件版，仅当运行 `node integrate.js --single` 时生成（默认不生成） |
+
+GitHub 仓库 `gongpz/qingban` 的根目录就是拆分版的 `index.html` + `assets/`（GitHub Pages：
+https://gongpz.github.io/qingban/ ），`_build/` 为同一份源码。
 
 ## 目录
 
@@ -41,9 +44,9 @@
 
 ```powershell
 $node = "C:\Users\Mask\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\node\bin\node.exe"
-& $node integrate.js        # 输出 ../qb.html 与 ../qb-拆分版/
-& $node run-tests.js        # 需要 Edge；会输出通过项与控制台错误
-& $node run-tests.js "E:\AI工作\轻办排版\qb-拆分版\index.html"   # 验证拆分版
+& $node integrate.js            # 只生成 ../qb-拆分版/index.html + assets/
+& $node integrate.js --single   # 额外生成单文件版 ../qb.html（可选）
+& $node run-tests.js "E:\AI工作\轻办排版\qb-拆分版\index.html"   # 无头 Edge 回归（74 项）
 ```
 
 `integrate.js` 总是从 `qb.base.html` 重新合并，可安全重复执行（幂等）。
@@ -52,7 +55,32 @@ $node = "C:\Users\Mask\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\node\b
 2. 顶栏 `theme-btn` 前（3 个导航按钮）
 3. 页脚前（3 个面板）
 4. `var panels={...}` 映射中加入 `audio` / `video` / `code`
-5. `</body>` 前：库 + 3 个面板脚本（单文件版内联；拆分版写入 `assets/` 并用 `<script src>` 引用）
+5. `</body>` 前：库 + 3 个面板脚本（拆分版写入 `assets/` 并用 `<script src>` 引用）
+
+## 发布到 GitHub（gongpz/qingban）
+
+仓库根目录 = 拆分版成品（`index.html` + `assets/`）+ `_build/` 源码。本机若没有系统 Git，
+可用内置的便携版：`_build\tools\mingit\cmd\git.exe`（已在 `.gitignore` 中排除，不推送）。
+
+```powershell
+$git  = "E:\AI工作\轻办排版\_build\tools\mingit\cmd\git.exe"
+$repo = "E:\AI工作\轻办排版\_build\repo"     # 仓库克隆（首次：& $git clone git@github.com:gongpz/qingban.git $repo）
+
+# 1) 同步成品
+Copy-Item "E:\AI工作\轻办排版\qb-拆分版\index.html" "$repo\index.html" -Force
+Remove-Item "$repo\assets" -Recurse -Force; Copy-Item "E:\AI工作\轻办排版\qb-拆分版\assets" "$repo\assets" -Recurse
+
+# 2) 同步源码（排除 tools / samples / shots / original / repo）
+Get-ChildItem "E:\AI工作\轻办排版\_build" -Force |
+  Where-Object { $_.Name -notin @('tools','samples','shots','original','repo','__pycache__') -and $_.Name -notlike 'edge-*' } |
+  ForEach-Object { Copy-Item $_.FullName "$repo\_build\$($_.Name)" -Recurse -Force }
+
+# 3) 提交推送
+cd $repo
+& $git add -A
+& $git commit -m "更新：<说明>"
+& $git push origin main
+```
 
 ## 第三方组件与许可证
 
